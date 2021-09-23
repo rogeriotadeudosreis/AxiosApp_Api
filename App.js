@@ -8,9 +8,13 @@ import api from './src/services/api';
 export default function App() {
   function Elogio({data}) {
     return (
-      <View style={{backgroundColor: '#999', margin: 3, flexDirection: 'row'}}>
-        <Text>{data.name}</Text>
-        <Button title="X" onPress={() => handleDelete(data.id)}></Button>
+      <View style={styles.containerElogio}>
+        <Text style={styles.elogio}>{data.name}</Text>
+        <Button
+          title="Del"
+          color="red"
+          onPress={() => handleDelete(data.id)}
+        ></Button>
       </View>
     );
   }
@@ -86,19 +90,19 @@ export default function App() {
         />
         <View style={styles.containerBotoes}>
           <Button
-            color="#182522"
+            color="blue"
             title="Logar"
             onPress={handleAutenticate}></Button>
           <Button
-            color="#182522"
+            color="brown"
             title="Listar"
             onPress={handleListaTags}></Button>
           <Button
-            color="#182522"
-            title="Delete" 
+            color="red"
+            title="Delete"
             onPress={handleDelete}></Button>
           <Button
-            color="#182522"
+            color="green"
             title="Logout"
             onPress={handleDeslogar}></Button>
         </View>

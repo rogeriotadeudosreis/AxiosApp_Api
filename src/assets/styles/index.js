@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: '90%',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
   containerToken: {
     marginTop: 20,
@@ -54,6 +54,23 @@ const styles = StyleSheet.create({
   },
   containerListaElogios: {
     backgroundColor: '#182522',
+  },
+  elogio: {
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  containerElogio: {
+    flexDirection: 'row',
+    backgroundColor: '#FFF',
+    margin: 5,
+    marginHorizontal: 20,
+    borderRadius: 4,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  botaoDelete: {
+    color: 'red',
   },
 });
 
