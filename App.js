@@ -1,13 +1,6 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Keyboard,
-  Button,
-  FlatList,
-} from 'react-native';
+import {Text, View, TextInput, Keyboard, Button, FlatList} from 'react-native';
+import styles from './src/assets/styles';
 import api from './src/services/api';
 
 // https://github.com/halleygondim/api_node_backend
@@ -26,11 +19,14 @@ export default function App() {
   const [acao, setAcao] = useState('');
   const [list, setList] = useState([]);
 
+  const Separador = () => <View style={styles.separador} />;
+
   async function handleAutenticate() {
     try {
       const response = await api.post('/login', user);
       setToken(response.data);
       setAcao('Autenticação Concluída');
+      alert(acao);
       Keyboard.dismiss();
     } catch (error) {
       console.log('ERRO' + error);
@@ -54,7 +50,7 @@ export default function App() {
       Authorization: 'Bearer ' + null,
     };
     setToken('');
-    setListagem([]);
+    setList([]);
     setAcao('Saiu da aplicação');
   }
 
@@ -73,33 +69,47 @@ export default function App() {
       <View style={styles.container}>
         <Text style={styles.texto}>Consumindo uma api node</Text>
 
-        <Text>E-mail</Text>
+        <Text style={styles.login}>Login do Usuário</Text>
+        <Separador />
         <TextInput
+          style={styles.input}
           value={user.email}
           onChangeText={email => setUser({...user, email})}
           placeholder="Digite o E-mail..."
         />
-        <Text>Senha</Text>
         <TextInput
+          style={styles.input}
           value={user.password}
           onChangeText={password => setUser({...user, password})}
           placeholder="Digite a senha..."
           password={true}
         />
-        <View>
-          <Button title="Logar" onPress={handleAutenticate}></Button>
-          <Button title="Listar" onPress={handleListaTags}></Button>
+        <View style={styles.containerBotoes}>
+          <Button
+            color="#182522"
+            title="Logar"
+            onPress={handleAutenticate}></Button>
+          <Button
+            color="#182522"
+            title="Listar"
+            onPress={handleListaTags}></Button>
+          <Button
+            color="#182522"
+            title="Delete" 
+            onPress={handleDelete}></Button>
+          <Button
+            color="#182522"
+            title="Logout"
+            onPress={handleDeslogar}></Button>
         </View>
 
-      <View>
-        <Text>Token</Text>
-        <Text>{token}</Text>
-        <Text>Ação</Text>
-        <Text>{acao}</Text>
-      </View>
+        <View style={styles.containerToken}>
+          <Text style={styles.tituloToken}>( Token )</Text>
+          <Text style={styles.conteudoToken}>{token}</Text>
+        </View>
       </View>
 
-      <View>
+      <View style={styles.containerListaElogios}>
         <FlatList
           data={list}
           keyExtractor={item => item.id}
@@ -109,17 +119,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#182522',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  texto: {
-    color: '#FFF',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-});
